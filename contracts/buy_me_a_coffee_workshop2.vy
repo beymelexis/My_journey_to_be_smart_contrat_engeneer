@@ -17,20 +17,20 @@ interface AggregatorV3Interface:
 MINIMUM_USD: public(constant(uint256)) = as_wei_value(5, "ether")
 PRICE_FEED: public(immutable(AggregatorV3Interface)) # 0x694AA1769357215DE4FAC081bf1f309aDC325306 sepolia
 BTC_USD_PRICE_FEED: public(immutable(AggregatorV3Interface))
-OWNER: public(immutable(address))
 PRECISION: constant(uint256) = 1 * (10 ** 18)
 
 # Storage
 funders: public(DynArray[address, 1000])
 funder_to_amount_funded: public(HashMap[address, uint256])
 total_amount: public(uint256)
+owner: public(address)
 
 # With constants: 262,853
 @deploy
 def __init__(price_feed: address, btc_usd_feed : address):
     PRICE_FEED = AggregatorV3Interface(price_feed)
     BTC_USD_PRICE_FEED = AggregatorV3Interface (btc_usd_feed)
-    OWNER = msg.sender
+    self.owner = msg.sender
 
 @external
 @view
@@ -63,9 +63,9 @@ def withdraw():
 
     How do we make sure only we can pull the money out?
     """
-    assert msg.sender == OWNER, "Not the contract owner!"
-    raw_call(OWNER, b"", value = self.balance)
-    # send(OWNER, self.balance)
+    assert msg.sender == self.owner, "Not the contract self.owner!"
+    raw_call(self.owner, b"", value = self.balance)
+    # send(self.owner, self.balance)
     # resetting
     for funder: address in self.funders:
         self.funder_to_amount_funded[funder] = 0
@@ -92,9 +92,15 @@ def get_eth_to_usd_rate(eth_amount: uint256) -> uint256:
 # 1. How much money has been funded in ETH?
 @external
 def total_amount_funded()-> uint256 :
+    self.total_amount = 0
     for funder: address in self.funders:
         self.total_amount = self.total_amount + self.funder_to_amount_funded[funder]
     return self.total_amount// (10**18)
+
+@external
+def change_owner(new_owner: address):
+    assert msg.sender == self.owner, "Only the owner can change ownership"
+    self.owner = new_owner
 
 @external 
 @payable 
