@@ -70,16 +70,18 @@ why zksync is recommended cus the security , low cost EVM compatibility eth wall
 
 1. GO to youtube and watch (Learn Vyper 0.2):it is an introduction to vyper execute the code and read details in the official vyper website.
 2. START LEARNING BY CODING Workshop 1: > Section 1: Welcome to Remix - Favorite's List  ##### DONE 
-
 What is a revert : when any actions has been done and send the reamaining gas back
-
 4. Understaing chainlink how to work with it and find the price of the real world
-
 5. How to read from other contract 
-
 6. there are two functions to senf money : send and rawcall
 7. How to resset DynArray  []
 
-
 8. START LEARNING BY CODING Workshop 2 : > Section 1: Remix Buy Me A Coffee  ##### DONE 
+
+9. boa is a powerful tool to deploy a contact without building a transaction using python. just use this tool to load your smart contrcat . just in a single line 
+you should take it easy first eg : https://github.com/Cyfrin/boa-favorites-cu/blob/main/deploy_favorites.py
+
+10. YOU should concentrzte on the easiet way to compile a smart contract by using titanoboa and for the toool is moccassain or mox 
+
+11. you just need to see the section mox fav and work with that incredible.
 

@@ -1,11 +1,7 @@
 [project]
-name = "My_journey_to_be_smart_contrat_engeneer"
+name = "my-journey-to-be-smart-contrat-engeneer"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "pylance>=0.24.1",
-    "vyper>=0.4.0",
-    "web3>=7.9.0",
-]
+dependencies = []
